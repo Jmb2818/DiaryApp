@@ -30,6 +30,12 @@ class EntryTableViewCell: UITableViewCell {
     func configureWith(_ model: EntryModel) {
         self.entryDate.text = model.date
         self.entryMoodImageView.image = model.moodImage
+        if model.mood != "" {
+            self.entryMoodImageView.isHidden = false
+            self.entryMoodImageView.image = model.moodImage
+        } else {
+            self.entryMoodImageView.isHidden = true
+        }
         self.entryPassage.text = model.entry
     }
 }

@@ -32,12 +32,12 @@ class MasterViewController: UIViewController {
         self.navigationItem.title = formattedDate
     }
     
-    func presentDetailView() {
+    func presentDetailView(with model: EntryModel) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
         }
-        
+        controller.model = model
         show(controller, sender: nil)
     }
     
@@ -51,7 +51,8 @@ class MasterViewController: UIViewController {
 
 extension MasterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetailView()
+        let model = models[indexPath.row]
+        presentDetailView(with: model)
     }
 }
 

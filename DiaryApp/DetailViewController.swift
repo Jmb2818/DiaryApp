@@ -20,18 +20,32 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var goodButton: UIButton!
     
     lazy var moodButtonArray = [goodButton, averageButton, badButton]
+    var model: EntryModel?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        setupView()
+    }
+    
+    func setupNavigationBar() {
         let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEntry))
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveEntry))
         navigationItem.setLeftBarButton(backButton, animated: false)
         navigationItem.setRightBarButton(saveButton, animated: false)
         navigationItem.leftBarButtonItem?.tintColor = .white
         navigationItem.rightBarButtonItem?.tintColor = .white
+    }
+    
+    func setupView() {
+        guard let model = model else {
+            return
+        }
         locationLabel.isHidden = true
         editLocationButton.isHidden = true
+        self.entryDateLabel.text = model.date
+        self.entryTextView.text = model.entry
     }
     
     @objc func cancelEntry() {

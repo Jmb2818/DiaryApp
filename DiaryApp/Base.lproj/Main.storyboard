@@ -173,6 +173,9 @@
                                         <state key="normal" title="Add Location">
                                             <color key="titleColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="IZW-Zc-a3s" kind="show" id="vxN-fm-byU"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvu-rR-OJa">
                                         <rect key="frame" x="192" y="0.0" width="30" height="30"/>
@@ -185,7 +188,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BGE-Nt-sIl">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Bad" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Z-CT-ruy">
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Bad" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Z-CT-ruy">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
                                         <color key="backgroundColor" red="0.85098039215686272" green="0.28235294117647058" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
@@ -198,7 +201,7 @@
                                             <action selector="moodSelectedWithSender:" destination="8LH-cs-Nun" eventType="touchUpInside" id="0Ju-rU-Mv0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Average" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cs-4w-RsC">
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Average" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cs-4w-RsC">
                                         <rect key="frame" x="125" y="0.0" width="125" height="50"/>
                                         <color key="backgroundColor" red="0.32156862745098036" green="0.32156862745098036" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
@@ -209,7 +212,7 @@
                                             <action selector="moodSelectedWithSender:" destination="8LH-cs-Nun" eventType="touchUpInside" id="2pb-ad-25t"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Good" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAC-OE-m4i">
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="Good" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAC-OE-m4i">
                                         <rect key="frame" x="250" y="0.0" width="125" height="50"/>
                                         <color key="backgroundColor" red="0.41960784313725491" green="0.55294117647058827" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
@@ -260,6 +263,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCx-Ju-hNR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2586.4000000000001" y="-1535.9820089955024"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="llP-HS-TUZ">
+            <objects>
+                <viewController storyboardIdentifier="mapKitView" id="IZW-Zc-a3s" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bx7-BF-TCW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kYt-Ee-Veg">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kYt-Ee-Veg" firstAttribute="top" secondItem="63z-XG-Q0J" secondAttribute="top" id="6ck-WN-lZD"/>
+                            <constraint firstItem="63z-XG-Q0J" firstAttribute="bottom" secondItem="kYt-Ee-Veg" secondAttribute="bottom" id="KUW-YB-xiR"/>
+                            <constraint firstItem="kYt-Ee-Veg" firstAttribute="leading" secondItem="63z-XG-Q0J" secondAttribute="leading" id="lub-u6-ktw"/>
+                            <constraint firstItem="63z-XG-Q0J" firstAttribute="trailing" secondItem="kYt-Ee-Veg" secondAttribute="trailing" id="odV-wh-lNC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="63z-XG-Q0J"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZxU-lG-YaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3662" y="-1553"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NKb-8E-nfC">

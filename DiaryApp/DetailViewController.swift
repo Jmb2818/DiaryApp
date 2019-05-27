@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     
     lazy var moodButtonArray = [goodButton, averageButton, badButton]
     var model: EntryModel?
+    var coreDataStack: CoreDataStack?
     
     
     override func viewDidLoad() {
@@ -53,6 +54,9 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveEntry() {
+        guard let coreDataStack = coreDataStack else {
+            return
+        }
         let rootViewController = navigationController?.viewControllers.filter({ $0 is MasterViewController })
         if let rootController = rootViewController?.first as? MasterViewController {
             var selectedMood = ""
@@ -62,6 +66,8 @@ class DetailViewController: UIViewController {
                 }
             })
             let model = EntryModel(date: entryDateLabel.text ?? "", entry: entryTextView.text ?? "", mood: selectedMood)
+            Entry.with(model, in: coreDataStack.managedObjectContext)
+            coreDataStack.managedObjectContext.saveChanges()
             rootController.models.append(model)
         }
         navigationController?.popToRootViewController(animated: true)

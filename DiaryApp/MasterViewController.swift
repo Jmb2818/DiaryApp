@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MasterViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class MasterViewController: UIViewController {
     
     private let dateEditor = DateEditor()
     var models: [EntryModel] = []
+    var entries: [NSManagedObject] = []
+    var coreDataStack = CoreDataStack()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,9 @@ class MasterViewController: UIViewController {
         guard let controller = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
         }
+        
         controller.model = model
+        controller.coreDataStack = coreDataStack
         show(controller, sender: nil)
     }
     

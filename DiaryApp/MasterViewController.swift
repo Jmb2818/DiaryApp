@@ -14,12 +14,17 @@ class MasterViewController: UIViewController {
     @IBOutlet weak var entryTableView: UITableView!
     
     private let dateEditor = DateEditor()
-    var models: [EntryModel] = []
     var entries: [NSManagedObject] = []
     var coreDataStack = CoreDataStack()
     
+    lazy var dataSource: EntryTableViewDataSource = {
+        let request: NSFetchRequest<Entry> = Entry.fetchRequest()
+        return EntryTableViewDataSource(fetchRequest: request, managedObjectContext: self.coreDataStack.managedObjectContext, tableView: self.entryTableView)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        entryTableView.dataSource = dataSource
         configureInitialModel()
         setUpNavigationBar()
     }
@@ -47,34 +52,21 @@ class MasterViewController: UIViewController {
     }
     
     func configureInitialModel() {
+        guard !dataSource.entryEnteredToday() else {
+            return
+        }
         let todaysDate = Date()
         let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate) ?? ""
         let initialModel = EntryModel(date: formattedDate, entry: "Record your thoughts for today", mood: "")
-        models.append(initialModel)
+        Entry.with(initialModel, in: coreDataStack.managedObjectContext)
+        coreDataStack.managedObjectContext.saveChanges()
     }
 }
 
 extension MasterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = models[indexPath.row]
+        let entry = dataSource.entryAt(indexPath)
+        let model = EntryModel(entry: entry)
         presentDetailView(with: model)
     }
-}
-
-extension MasterViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "entryCell", for: indexPath) as? EntryTableViewCell else {
-            fatalError()
-        }
-        
-        let model = models[indexPath.row]
-        cell.configureWith(model)
-        return cell
-    }
-    
-    
 }

@@ -57,19 +57,15 @@ class DetailViewController: UIViewController {
         guard let coreDataStack = coreDataStack else {
             return
         }
-        let rootViewController = navigationController?.viewControllers.filter({ $0 is MasterViewController })
-        if let rootController = rootViewController?.first as? MasterViewController {
-            var selectedMood = ""
-            moodButtonArray.forEach({
-                if $0?.isSelected ?? false {
-                    selectedMood = $0?.restorationIdentifier ?? ""
-                }
-            })
-            let model = EntryModel(date: entryDateLabel.text ?? "", entry: entryTextView.text ?? "", mood: selectedMood)
-            Entry.with(model, in: coreDataStack.managedObjectContext)
-            coreDataStack.managedObjectContext.saveChanges()
-            rootController.models.append(model)
-        }
+        var selectedMood = ""
+        moodButtonArray.forEach({
+            if $0?.isSelected ?? false {
+                selectedMood = $0?.restorationIdentifier ?? ""
+            }
+        })
+        let model = EntryModel(date: entryDateLabel.text ?? "", entry: entryTextView.text ?? "", mood: selectedMood)
+        Entry.with(model, in: coreDataStack.managedObjectContext)
+        coreDataStack.managedObjectContext.saveChanges()
         navigationController?.popToRootViewController(animated: true)
     }
     

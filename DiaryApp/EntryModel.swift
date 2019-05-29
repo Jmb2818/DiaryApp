@@ -25,4 +25,17 @@ struct EntryModel {
             return nil
         }
     }
+    
+    init(entry: Entry) {
+        self.date = entry.date
+        self.entry = entry.entry
+        self.mood = entry.mood
+    }
+    
+    init(date: String, entry: String, mood: String) {
+        self.date = date
+        self.entry = entry
+        self.mood = mood
+    }
+    
 }

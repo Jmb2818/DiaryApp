@@ -14,11 +14,12 @@ class Entry: NSManagedObject {}
 extension Entry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
         let request = NSFetchRequest<Entry>(entityName: "Entry")
-//        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
-//        request.sortDescriptors = [sortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
         return request
     }
     
+    @NSManaged public var creationDate: Date
     @NSManaged public var date: String
     @NSManaged public var entry: String
     @NSManaged public var mood: String
@@ -34,6 +35,7 @@ extension Entry {
             return
         }
         
+        entry.creationDate = Date()
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood

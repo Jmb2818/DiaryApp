@@ -14,7 +14,7 @@ class Entry: NSManagedObject {}
 extension Entry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
         let request = NSFetchRequest<Entry>(entityName: "Entry")
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         request.sortDescriptors = [sortDescriptor]
         return request
     }

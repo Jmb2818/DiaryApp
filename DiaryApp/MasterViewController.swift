@@ -40,19 +40,21 @@ class MasterViewController: UIViewController {
         self.navigationItem.title = formattedDate
     }
     
-    func presentDetailView(with model: EntryModel) {
+    func presentDetailView(with entry: Entry, at indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
         }
         
+        let model = EntryModel(entry: entry)
         controller.model = model
+        controller.entry = entry
         controller.coreDataStack = coreDataStack
         show(controller, sender: nil)
     }
     
     func configureInitialModel() {
-        guard !dataSource.entryEnteredToday() else {
+        guard dataSource.entriesCount == 0 || !dataSource.entryEnteredToday() else {
             return
         }
         let todaysDate = Date()
@@ -66,7 +68,6 @@ class MasterViewController: UIViewController {
 extension MasterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry = dataSource.entryAt(indexPath)
-        let model = EntryModel(entry: entry)
-        presentDetailView(with: model)
+        presentDetailView(with: entry, at: indexPath)
     }
 }

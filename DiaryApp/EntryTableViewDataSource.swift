@@ -14,6 +14,10 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     private let fetchedResultsController: EntriesFetchedResultsController
     private let dateEditor = DateEditor()
     
+    var entriesCount: Int {
+        return fetchedResultsController.fetchedObjects?.count ?? 0
+    }
+    
     init(fetchRequest: NSFetchRequest<Entry>, managedObjectContext context: NSManagedObjectContext, tableView: UITableView) {
         self.tableView = tableView
         self.fetchedResultsController = EntriesFetchedResultsController(request: fetchRequest, context: context)

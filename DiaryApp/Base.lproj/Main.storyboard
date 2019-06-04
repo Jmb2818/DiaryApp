@@ -117,9 +117,13 @@
                     <navigationItem key="navigationItem" title="Label" id="Hig-Ba-UhF">
                         <barButtonItem key="rightBarButtonItem" image="writeIcon" id="6AZ-eg-yR2">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addNewEntryWithSender:" destination="Ytd-Ik-tQJ" id="Tfu-xU-dLj"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addEntryButton" destination="6AZ-eg-yR2" id="Oms-67-yf4"/>
                         <outlet property="entryTableView" destination="NbC-MR-ZRO" id="H6e-7c-Ws8"/>
                     </connections>
                 </viewController>
@@ -324,6 +328,6 @@
         <image name="smallBadIcon" width="15" height="15"/>
         <image name="smallHappyIcon" width="15" height="15"/>
         <image name="smallNeutralIcon" width="14.5" height="14.5"/>
-        <image name="writeIcon" width="12.5" height="12.5"/>
+        <image name="writeIcon" width="22" height="22"/>
     </resources>
 </document>

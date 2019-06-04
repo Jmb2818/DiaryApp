@@ -55,19 +55,30 @@ class DetailViewController: UIViewController {
     }
     
     @objc func saveEntry() {
-        guard let coreDataStack = coreDataStack, let entry = entry else {
+        guard let coreDataStack = coreDataStack else {
             return
         }
+        
+        defer {
+            coreDataStack.managedObjectContext.saveChanges()
+            navigationController?.popToRootViewController(animated: true)
+        }
+        
         var selectedMood = ""
         moodButtonArray.forEach({
             if $0?.isSelected ?? false {
                 selectedMood = $0?.restorationIdentifier ?? ""
             }
         })
+        guard let entry = entry else {
+            let date = entryDateLabel.text ?? ""
+            let model = EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
+            Entry.with(model, in: coreDataStack.managedObjectContext)
+            return
+        }
         entry.setValue(entryTextView.text, forKey: "entry")
         entry.setValue(selectedMood, forKey: "mood")
-        coreDataStack.managedObjectContext.saveChanges()
-        navigationController?.popToRootViewController(animated: true)
+        entry.setValue(true, forKey: "isEdited")
     }
     
     func resetMoodButtons() {

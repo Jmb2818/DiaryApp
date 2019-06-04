@@ -23,6 +23,7 @@ extension Entry {
     @NSManaged public var date: String
     @NSManaged public var entry: String
     @NSManaged public var mood: String
+    @NSManaged public var isEdited: Bool
 }
 
 extension Entry {
@@ -39,5 +40,5 @@ extension Entry {
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood
-    }
+        entry.isEdited = false    }
 }

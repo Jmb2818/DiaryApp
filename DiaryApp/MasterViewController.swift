@@ -11,11 +11,17 @@ import CoreData
 
 class MasterViewController: UIViewController {
     
+    @IBOutlet weak var addEntryButton: UIBarButtonItem!
     @IBOutlet weak var entryTableView: UITableView!
     
     private let dateEditor = DateEditor()
     var entries: [NSManagedObject] = []
     var coreDataStack = CoreDataStack()
+    private var initialModel: EntryModel {
+        let todaysDate = Date()
+        let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate) ?? ""
+        return EntryModel(date: formattedDate, entry: "Record your thoughts for today", mood: "")
+    }
     
     lazy var dataSource: EntryTableViewDataSource = {
         let request: NSFetchRequest<Entry> = Entry.fetchRequest()
@@ -40,15 +46,20 @@ class MasterViewController: UIViewController {
         self.navigationItem.title = formattedDate
     }
     
-    func presentDetailView(with entry: Entry, at indexPath: IndexPath) {
+    func presentDetailView(with entry: Entry?) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
         }
         
-        let model = EntryModel(entry: entry)
-        controller.model = model
-        controller.entry = entry
+        if let entry = entry {
+            let model = EntryModel(entry: entry)
+            controller.model = model
+            controller.entry = entry
+        } else {
+            controller.model = initialModel
+        }
+        
         controller.coreDataStack = coreDataStack
         show(controller, sender: nil)
     }
@@ -57,17 +68,23 @@ class MasterViewController: UIViewController {
         guard dataSource.entriesCount == 0 || !dataSource.entryEnteredToday() else {
             return
         }
-        let todaysDate = Date()
-        let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate) ?? ""
-        let initialModel = EntryModel(date: formattedDate, entry: "Record your thoughts for today", mood: "")
         Entry.with(initialModel, in: coreDataStack.managedObjectContext)
         coreDataStack.managedObjectContext.saveChanges()
+    }
+    
+    @IBAction func addNewEntry(sender: UIBarButtonItem) {
+        let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
+        if !firstEntry.isEdited {
+            presentDetailView(with: firstEntry)
+        } else {
+            presentDetailView(with: nil)
+        }
     }
 }
 
 extension MasterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry = dataSource.entryAt(indexPath)
-        presentDetailView(with: entry, at: indexPath)
+        presentDetailView(with: entry)
     }
 }

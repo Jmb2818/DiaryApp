@@ -24,6 +24,7 @@ extension Entry {
     @NSManaged public var entry: String
     @NSManaged public var mood: String
     @NSManaged public var isEdited: Bool
+    @NSManaged public var creationLocation: String
 }
 
 extension Entry {

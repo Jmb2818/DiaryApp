@@ -271,10 +271,10 @@
             </objects>
             <point key="canvasLocation" x="2586.4000000000001" y="-1535.9820089955024"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="llP-HS-TUZ">
             <objects>
-                <viewController storyboardIdentifier="mapKitView" id="IZW-Zc-a3s" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapKitView" id="IZW-Zc-a3s" customClass="MapViewController" customModule="DiaryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bx7-BF-TCW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -282,16 +282,40 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kYt-Ee-Veg">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8f-Sw-P7C">
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap To Select A Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6X-er-wjR">
+                                        <rect key="frame" x="93" y="14.5" width="189" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="L6X-er-wjR" firstAttribute="centerX" secondItem="p8f-Sw-P7C" secondAttribute="centerX" id="F5V-e1-SKY"/>
+                                    <constraint firstAttribute="height" constant="50" id="LH7-1W-ceX"/>
+                                    <constraint firstItem="L6X-er-wjR" firstAttribute="centerY" secondItem="p8f-Sw-P7C" secondAttribute="centerY" id="uP8-pc-P3S"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="p8f-Sw-P7C" firstAttribute="top" secondItem="63z-XG-Q0J" secondAttribute="top" id="5I3-2u-4HA"/>
+                            <constraint firstItem="63z-XG-Q0J" firstAttribute="trailing" secondItem="p8f-Sw-P7C" secondAttribute="trailing" id="5vy-vL-6fY"/>
                             <constraint firstItem="kYt-Ee-Veg" firstAttribute="top" secondItem="63z-XG-Q0J" secondAttribute="top" id="6ck-WN-lZD"/>
+                            <constraint firstItem="p8f-Sw-P7C" firstAttribute="leading" secondItem="63z-XG-Q0J" secondAttribute="leading" id="6re-lR-9d6"/>
                             <constraint firstItem="63z-XG-Q0J" firstAttribute="bottom" secondItem="kYt-Ee-Veg" secondAttribute="bottom" id="KUW-YB-xiR"/>
                             <constraint firstItem="kYt-Ee-Veg" firstAttribute="leading" secondItem="63z-XG-Q0J" secondAttribute="leading" id="lub-u6-ktw"/>
                             <constraint firstItem="63z-XG-Q0J" firstAttribute="trailing" secondItem="kYt-Ee-Veg" secondAttribute="trailing" id="odV-wh-lNC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="63z-XG-Q0J"/>
                     </view>
+                    <connections>
+                        <outlet property="locationLabel" destination="L6X-er-wjR" id="gLA-hH-fPH"/>
+                        <outlet property="mapView" destination="kYt-Ee-Veg" id="y6y-WZ-Qa9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZxU-lG-YaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

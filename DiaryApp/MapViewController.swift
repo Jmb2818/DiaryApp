@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var locationLabelView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
     
     let locationManager = CLLocationManager()
@@ -24,12 +25,19 @@ class MapViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         setupGestures()
+        setUpLocationView()
         setupNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         focusOnCurrentLocation()
+    }
+    
+    private func setUpLocationView() {
+        locationLabelView.clipsToBounds = true
+        locationLabelView.layer.cornerRadius = 20
+        locationLabelView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
     private func setupGestures() {

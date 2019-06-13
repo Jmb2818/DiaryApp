@@ -333,6 +333,7 @@
                     </view>
                     <connections>
                         <outlet property="locationLabel" destination="L6X-er-wjR" id="gLA-hH-fPH"/>
+                        <outlet property="locationLabelView" destination="p8f-Sw-P7C" id="kIA-aV-fif"/>
                         <outlet property="mapView" destination="kYt-Ee-Veg" id="y6y-WZ-Qa9"/>
                     </connections>
                 </viewController>

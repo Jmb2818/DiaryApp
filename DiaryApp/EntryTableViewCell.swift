@@ -27,8 +27,10 @@ class EntryTableViewCell: UITableViewCell {
         entryImageView.clipsToBounds = true
     }
     
-    func configureWith(_ model: EntryModel) {
+    func configureWith(_ model: EntryModel, isEdited: Bool) {
+        let textColor = isEdited ? #colorLiteral(red: 0.4748743773, green: 0.4748743773, blue: 0.4748743773, alpha: 1) : #colorLiteral(red: 0.5764705882, green: 0.5764705882, blue: 0.5764705882, alpha: 1)
         self.entryDate.text = model.date
+        self.entryPassage.textColor = textColor
         self.entryMoodImageView.image = model.moodImage
         if model.mood != "" {
             self.entryMoodImageView.isHidden = false

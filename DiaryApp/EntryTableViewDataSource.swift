@@ -37,7 +37,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         
         let entry = fetchedResultsController.object(at: indexPath)
         let model = EntryModel(entry: entry)
-        cell.configureWith(model)
+        cell.configureWith(model, isEdited: entry.isEdited)
         return cell
     }
     

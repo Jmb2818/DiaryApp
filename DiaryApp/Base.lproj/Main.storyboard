@@ -238,12 +238,22 @@
                                     <constraint firstAttribute="height" constant="50" id="MZS-qg-Zo7"/>
                                 </constraints>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pictureIcon" translatesAutoresizingMaskIntoConstraints="NO" id="XZR-pN-mti">
+                                <rect key="frame" x="127.5" y="387.5" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="VXR-5J-xDw"/>
+                                    <constraint firstAttribute="height" constant="120" id="tQU-4g-cqW"/>
+                                    <constraint firstAttribute="width" secondItem="XZR-pN-mti" secondAttribute="height" multiplier="1:1" id="xF3-4R-o9C"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="BGE-Nt-sIl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="XZR-pN-mti" secondAttribute="bottom" constant="25" id="4yl-Wd-wlb"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dgE-tj-n91" secondAttribute="trailing" constant="30" id="AAr-lF-tsx"/>
                             <constraint firstItem="jNw-3z-XKo" firstAttribute="trailing" secondItem="BGE-Nt-sIl" secondAttribute="trailing" id="BLy-Gb-5FZ"/>
                             <constraint firstItem="WpB-qb-1P8" firstAttribute="top" secondItem="jNw-3z-XKo" secondAttribute="top" constant="30" id="DGA-ob-vrI"/>
+                            <constraint firstItem="XZR-pN-mti" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="DmB-G0-1oL"/>
                             <constraint firstItem="BGE-Nt-sIl" firstAttribute="leading" secondItem="jNw-3z-XKo" secondAttribute="leading" id="EOh-z6-TXT"/>
                             <constraint firstItem="dgE-tj-n91" firstAttribute="top" secondItem="I9y-WZ-d0W" secondAttribute="bottom" constant="40" id="JBE-kW-CA8"/>
                             <constraint firstItem="I9y-WZ-d0W" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="P0A-mv-5E0"/>
@@ -256,6 +266,7 @@
                             <constraint firstItem="dgE-tj-n91" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ims-7R-N0k" secondAttribute="leading" constant="20" id="rSR-HA-zmw"/>
                             <constraint firstItem="jNw-3z-XKo" firstAttribute="bottom" secondItem="BGE-Nt-sIl" secondAttribute="bottom" id="rok-ih-EOZ"/>
                             <constraint firstItem="dgE-tj-n91" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="u71-zP-nWt"/>
+                            <constraint firstItem="XZR-pN-mti" firstAttribute="top" secondItem="dgE-tj-n91" secondAttribute="bottom" constant="20" id="vko-wh-KIX"/>
                             <constraint firstItem="Rol-H7-NCv" firstAttribute="centerX" secondItem="I9y-WZ-d0W" secondAttribute="centerX" id="yRU-Oz-r6V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jNw-3z-XKo"/>

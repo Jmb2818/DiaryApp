@@ -72,6 +72,8 @@ class DetailViewController: UIViewController {
                 moodSelected(sender: button)
             }
         }
+        
+        // Clear out new entry's text
         if let entry = entry,
             !entry.isEdited {
             entryTextView.text = ""

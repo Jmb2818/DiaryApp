@@ -31,6 +31,13 @@ class DetailViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if model?.creationLocation != nil {
+            setupLocation()
+        }
+    }
+    
     func setupNavigationBar() {
         let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEntry))
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveEntry))
@@ -40,14 +47,36 @@ class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .white
     }
     
-    func setupView() {
+    func setupLocation() {
+        if let model = model, let location = model.creationLocation {
+            locationLabel.isHidden = false
+            editLocationButton.isHidden = false
+            addLocationButton.isHidden = true
+            locationLabel.text = location
+        } else {
+            locationLabel.isHidden = true
+            editLocationButton.isHidden = true
+            addLocationButton.isHidden = false
+        }
+    }
+    
+    // TODO: Move to private extension
+    private func setupView() {
         guard let model = model else {
             return
         }
-        locationLabel.isHidden = true
-        editLocationButton.isHidden = true
         self.entryDateLabel.text = model.date
         self.entryTextView.text = model.entry
+        moodButtonArray.forEach { button in
+            if let button = button, button.restorationIdentifier == model.mood {
+                moodSelected(sender: button)
+            }
+        }
+        if let entry = entry,
+            !entry.isEdited {
+            entryTextView.text = ""
+        }
+        setupLocation()
     }
     
     @objc func cancelEntry() {
@@ -73,12 +102,15 @@ class DetailViewController: UIViewController {
         guard let entry = entry else {
             let date = entryDateLabel.text ?? ""
             let model = EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
-            Entry.with(model, in: coreDataStack.managedObjectContext)
+            Entry.with(model, in: coreDataStack.managedObjectContext, isEdited: true)
             return
         }
         entry.setValue(entryTextView.text, forKey: "entry")
         entry.setValue(selectedMood, forKey: "mood")
-        entry.setValue(true, forKey: "isEdited")
+        entry.setValue(1, forKey: "isEdited")
+        if let creationLocation = model?.creationLocation {
+            entry.setValue(creationLocation, forKey: "creationLocation")
+        }
     }
     
     func resetMoodButtons() {

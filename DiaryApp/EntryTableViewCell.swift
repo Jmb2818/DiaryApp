@@ -36,6 +36,16 @@ class EntryTableViewCell: UITableViewCell {
         } else {
             self.entryMoodImageView.isHidden = true
         }
+        
+        if let location = model.creationLocation {
+            locationLabel.isHidden = false
+            geoLocationImageView.isHidden = false
+            self.locationLabel.text = location
+        } else {
+            locationLabel.isHidden = true
+            geoLocationImageView.isHidden = true
+        }
+        
         self.entryPassage.text = model.entry
     }
 }

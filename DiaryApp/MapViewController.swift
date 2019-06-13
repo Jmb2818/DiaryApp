@@ -49,16 +49,19 @@ class MapViewController: UIViewController {
             
             let coordinateRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
             annotation.coordinate = coordinateRegion.center
+            
             mapView.setRegion(coordinateRegion, animated: true)
-            mapView.showsUserLocation = true
         }
     }
     
     @objc private func saveLocation() {
-        guard let parentVC = parent as? DetailViewController else {
+        guard let detailVC = self.navigationController?.viewControllers.first(where: { $0 is DetailViewController }) as? DetailViewController else {
             return
         }
-        self.removeFromParent()
+        if locationLabel.text != "Tap To Select A Location" {
+            detailVC.model?.creationLocation = locationLabel.text
+        }
+        navigationController?.popViewController(animated: true)
     }
     
     //TODO: Maybe wrap the geo location in another function
@@ -75,9 +78,12 @@ class MapViewController: UIViewController {
             
             if let location = placemarks?.first {
                 let city = location.locality ?? ""
-                let street = location.thoroughfare ?? ""
                 let state = location.administrativeArea ?? ""
-                self?.locationLabel.text = "\(street) - \(city), \(state)"
+                if let street = location.thoroughfare {
+                    self?.locationLabel.text = "\(street) - \(city), \(state)"
+                } else {
+                    self?.locationLabel.text = "\(city), \(state)"
+                }
             }
         }
     }

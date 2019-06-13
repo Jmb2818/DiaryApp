@@ -160,7 +160,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dgE-tj-n91">
-                                <rect key="frame" x="37.5" y="337.5" width="222" height="30"/>
+                                <rect key="frame" x="76.5" y="337.5" width="222" height="30"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="geoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qhe-Hb-lDW">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -172,13 +172,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yko-fw-W1Q">
                                         <rect key="frame" x="40" y="0.0" width="42" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfL-tq-jcf">
                                         <rect key="frame" x="92" y="0.0" width="90" height="30"/>
                                         <state key="normal" title="Add Location">
-                                            <color key="titleColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="IZW-Zc-a3s" kind="show" id="vxN-fm-byU"/>
@@ -187,8 +187,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvu-rR-OJa">
                                         <rect key="frame" x="192" y="0.0" width="30" height="30"/>
                                         <state key="normal" title="Edit">
-                                            <color key="titleColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="IZW-Zc-a3s" kind="show" id="iL6-JP-kMY"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -238,7 +241,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dgE-tj-n91" secondAttribute="trailing" constant="10" id="AAr-lF-tsx"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dgE-tj-n91" secondAttribute="trailing" constant="30" id="AAr-lF-tsx"/>
                             <constraint firstItem="jNw-3z-XKo" firstAttribute="trailing" secondItem="BGE-Nt-sIl" secondAttribute="trailing" id="BLy-Gb-5FZ"/>
                             <constraint firstItem="WpB-qb-1P8" firstAttribute="top" secondItem="jNw-3z-XKo" secondAttribute="top" constant="30" id="DGA-ob-vrI"/>
                             <constraint firstItem="BGE-Nt-sIl" firstAttribute="leading" secondItem="jNw-3z-XKo" secondAttribute="leading" id="EOh-z6-TXT"/>
@@ -247,11 +250,12 @@
                             <constraint firstItem="Rol-H7-NCv" firstAttribute="leading" secondItem="I9y-WZ-d0W" secondAttribute="leading" id="REH-Il-v0T"/>
                             <constraint firstItem="I9y-WZ-d0W" firstAttribute="top" secondItem="WpB-qb-1P8" secondAttribute="bottom" constant="40" id="XpN-ov-fQT"/>
                             <constraint firstItem="Rol-H7-NCv" firstAttribute="top" secondItem="I9y-WZ-d0W" secondAttribute="top" id="d7K-Pb-DeP"/>
-                            <constraint firstItem="dgE-tj-n91" firstAttribute="leading" secondItem="WpB-qb-1P8" secondAttribute="leading" id="fg4-yb-zgl"/>
                             <constraint firstItem="WpB-qb-1P8" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="lVa-o4-kLG"/>
                             <constraint firstItem="Rol-H7-NCv" firstAttribute="bottom" secondItem="I9y-WZ-d0W" secondAttribute="bottom" id="q7n-QD-HWg"/>
                             <constraint firstItem="BGE-Nt-sIl" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="rFQ-oD-YKd"/>
+                            <constraint firstItem="dgE-tj-n91" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ims-7R-N0k" secondAttribute="leading" constant="20" id="rSR-HA-zmw"/>
                             <constraint firstItem="jNw-3z-XKo" firstAttribute="bottom" secondItem="BGE-Nt-sIl" secondAttribute="bottom" id="rok-ih-EOZ"/>
+                            <constraint firstItem="dgE-tj-n91" firstAttribute="centerX" secondItem="ims-7R-N0k" secondAttribute="centerX" id="u71-zP-nWt"/>
                             <constraint firstItem="Rol-H7-NCv" firstAttribute="centerX" secondItem="I9y-WZ-d0W" secondAttribute="centerX" id="yRU-Oz-r6V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jNw-3z-XKo"/>
@@ -354,4 +358,7 @@
         <image name="smallNeutralIcon" width="14.5" height="14.5"/>
         <image name="writeIcon" width="22" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="vxN-fm-byU"/>
+    </inferredMetricsTieBreakers>
 </document>

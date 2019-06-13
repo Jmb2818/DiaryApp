@@ -24,7 +24,7 @@ extension Entry {
     @NSManaged public var entry: String
     @NSManaged public var mood: String
     @NSManaged public var isEdited: Bool
-    @NSManaged public var creationLocation: String
+    @NSManaged public var creationLocation: String?
 }
 
 extension Entry {
@@ -32,7 +32,7 @@ extension Entry {
         return String(describing: Entry.self)
     }
     
-    @nonobjc class func with(_ entryModel: EntryModel, in context: NSManagedObjectContext) {
+    @nonobjc class func with(_ entryModel: EntryModel, in context: NSManagedObjectContext, isEdited: Bool = false) {
         guard let entry = NSEntityDescription.insertNewObject(forEntityName: Entry.entityName, into: context) as? Entry else {
             return
         }
@@ -41,5 +41,5 @@ extension Entry {
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood
-        entry.isEdited = false    }
+        entry.isEdited = isEdited   }
 }

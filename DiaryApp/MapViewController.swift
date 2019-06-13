@@ -21,6 +21,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         setupGestures()
         setupNavigationBar()
@@ -44,6 +45,7 @@ class MapViewController: UIViewController {
     private func focusOnCurrentLocation() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             guard let currentLocation = locationManager.location else {
+                locationManager.requestLocation()
                 return
             }
             
@@ -86,5 +88,15 @@ class MapViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        focusOnCurrentLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }

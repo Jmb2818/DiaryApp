@@ -95,7 +95,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc func pickImage() {
-        photoPickerManager.presentPhotoPicker(animated: true)
+        photoPickerManager.presentImagePickingOptions()
     }
     
     @objc func cancelEntry() {
@@ -153,5 +153,10 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: PhotoPickerManagerDelegate {
+    func photoPickerManager(_ manager: PhotoPickerManager, didPickImage image: UIImage) {
+        photoPickerManager.dismissPhotoPicker(animated: true, completion: nil)
+        entryImageView.image = image
+    }
+    
     
 }

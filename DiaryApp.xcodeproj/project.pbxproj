@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2564E922B20EBA0062489E /* PhotoPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */; };
 		0B3CC4DF228CFEEF004E9DC7 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3CC4DE228CFEEF004E9DC7 /* EntryModel.swift */; };
 		0B807FD722A748A3007BE606 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B807FD622A748A3007BE606 /* MapViewController.swift */; };
 		0B92FDAF2299B7B30021497F /* Entry.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B92FDAD2299B7B30021497F /* Entry.xcdatamodeld */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerManager.swift; sourceTree = "<group>"; };
 		0B3CC4DE228CFEEF004E9DC7 /* EntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryModel.swift; sourceTree = "<group>"; };
 		0B807FD622A748A3007BE606 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0B92FDAE2299B7B30021497F /* Entry.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Entry.xcdatamodel; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				0B92FDB6229BA7DF0021497F /* EntriesFetchedResultsController.swift */,
 				0B92FDB8229D06460021497F /* EntryTableViewDataSource.swift */,
 				0B807FD622A748A3007BE606 /* MapViewController.swift */,
+				0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */,
 			);
 			path = DiaryApp;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				0B807FD722A748A3007BE606 /* MapViewController.swift in Sources */,
 				0BF52C2522886A7D00598858 /* DetailViewController.swift in Sources */,
 				0B92FDB7229BA7DF0021497F /* EntriesFetchedResultsController.swift in Sources */,
+				0B2564E922B20EBA0062489E /* PhotoPickerManager.swift in Sources */,
 				0BF52BFF227FD6B000598858 /* MasterViewController.swift in Sources */,
 				0BF52BED227FD15A00598858 /* AppDelegate.swift in Sources */,
 			);

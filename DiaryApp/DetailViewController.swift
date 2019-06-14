@@ -18,8 +18,15 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var badButton: UIButton!
     @IBOutlet weak var averageButton: UIButton!
     @IBOutlet weak var goodButton: UIButton!
+    @IBOutlet weak var entryImageView: UIImageView!
     
     lazy var moodButtonArray = [goodButton, averageButton, badButton]
+    lazy var photoPickerManager: PhotoPickerManager = {
+        let manager = PhotoPickerManager(presentingViewController: self)
+        manager.delegate = self
+        return manager
+    }()
+    
     var model: EntryModel?
     var coreDataStack: CoreDataStack?
     var entry: Entry?
@@ -29,6 +36,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
+        addTapGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +87,15 @@ class DetailViewController: UIViewController {
             entryTextView.text = ""
         }
         setupLocation()
+    }
+    
+    func addTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
+        entryImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func pickImage() {
+        photoPickerManager.presentPhotoPicker(animated: true)
     }
     
     @objc func cancelEntry() {
@@ -133,4 +150,8 @@ class DetailViewController: UIViewController {
         sender.layer.borderColor = UIColor.white.cgColor
         sender.isSelected = true
     }
+}
+
+extension DetailViewController: PhotoPickerManagerDelegate {
+    
 }

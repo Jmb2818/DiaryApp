@@ -241,7 +241,7 @@
                                     <constraint firstAttribute="height" constant="50" id="MZS-qg-Zo7"/>
                                 </constraints>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoAlbum" translatesAutoresizingMaskIntoConstraints="NO" id="XZR-pN-mti">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoAlbum" translatesAutoresizingMaskIntoConstraints="NO" id="XZR-pN-mti">
                                 <rect key="frame" x="85.5" y="388" width="204" height="204"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="XZR-pN-mti" secondAttribute="height" multiplier="1:1" id="xF3-4R-o9C"/>
@@ -278,6 +278,7 @@
                         <outlet property="badButton" destination="M4Z-CT-ruy" id="yrp-yn-drb"/>
                         <outlet property="editLocationButton" destination="kvu-rR-OJa" id="O5n-UO-fCW"/>
                         <outlet property="entryDateLabel" destination="WpB-qb-1P8" id="BhD-x4-6na"/>
+                        <outlet property="entryImageView" destination="XZR-pN-mti" id="dYJ-0h-STX"/>
                         <outlet property="entryTextView" destination="I9y-WZ-d0W" id="4tc-lI-Uk7"/>
                         <outlet property="goodButton" destination="tAC-OE-m4i" id="9ao-5K-Pf3"/>
                         <outlet property="locationLabel" destination="Yko-fw-W1Q" id="HX8-3w-EYv"/>

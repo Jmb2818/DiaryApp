@@ -68,7 +68,14 @@ class MasterViewController: UIViewController {
         guard dataSource.entriesCount == 0 || !dataSource.entryEnteredToday() else {
             return
         }
-        Entry.with(initialModel, in: coreDataStack.managedObjectContext)
+        let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
+        if !firstEntry.isEdited {
+            let todaysDate = Date()
+            let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate)
+            firstEntry.setValue(formattedDate, forKey: "date")
+        } else {
+            Entry.with(initialModel, in: coreDataStack.managedObjectContext)
+        }
         coreDataStack.managedObjectContext.saveChanges()
     }
     

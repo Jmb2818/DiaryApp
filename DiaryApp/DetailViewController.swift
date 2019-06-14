@@ -75,6 +75,7 @@ class DetailViewController: UIViewController {
         }
         self.entryDateLabel.text = model.date
         self.entryTextView.text = model.entry
+        entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
         moodButtonArray.forEach { button in
             if let button = button, button.restorationIdentifier == model.mood {
                 moodSelected(sender: button)
@@ -129,6 +130,9 @@ class DetailViewController: UIViewController {
         entry.setValue(1, forKey: "isEdited")
         if let creationLocation = model?.creationLocation {
             entry.setValue(creationLocation, forKey: "creationLocation")
+        }
+        if let image = entryImageView.image, let imageData = image.jpegData(compressionQuality: 1.0) {
+            entry.setValue(imageData, forKey: "image")
         }
     }
     

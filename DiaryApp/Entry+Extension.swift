@@ -20,6 +20,7 @@ extension Entry {
     }
     
     @NSManaged public var creationDate: Date
+    @NSManaged public var image: NSData
     @NSManaged public var date: String
     @NSManaged public var entry: String
     @NSManaged public var mood: String
@@ -42,4 +43,13 @@ extension Entry {
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood
         entry.isEdited = isEdited   }
+}
+
+extension Entry {
+    var entryImage: UIImage? {
+        guard let image = UIImage(data: self.image as Data) else {
+            return nil
+        }
+        return image
+    }
 }

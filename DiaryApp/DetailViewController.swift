@@ -131,6 +131,7 @@ class DetailViewController: UIViewController {
         if let creationLocation = model?.creationLocation {
             entry.setValue(creationLocation, forKey: "creationLocation")
         }
+        
         if let image = entryImageView.image, let imageData = image.jpegData(compressionQuality: 1.0) {
             entry.setValue(imageData, forKey: "image")
         }

@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="153.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pictureIcon" translatesAutoresizingMaskIntoConstraints="NO" id="5oE-Jo-lqm">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photoAlbum" translatesAutoresizingMaskIntoConstraints="NO" id="5oE-Jo-lqm">
                                                     <rect key="frame" x="25" y="21" width="95" height="95"/>
                                                     <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -370,7 +370,6 @@
         <image name="happyIcon" width="25" height="25"/>
         <image name="linedBackground" width="164" height="113"/>
         <image name="photoAlbum" width="512" height="512"/>
-        <image name="pictureIcon" width="24" height="24"/>
         <image name="smallBadIcon" width="15" height="15"/>
         <image name="smallHappyIcon" width="15" height="15"/>
         <image name="smallNeutralIcon" width="14.5" height="14.5"/>

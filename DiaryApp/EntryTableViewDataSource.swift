@@ -13,6 +13,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     private let tableView: UITableView
     private let fetchedResultsController: EntriesFetchedResultsController
     private let dateEditor = DateEditor()
+    private let context: NSManagedObjectContext
     
     var entriesCount: Int {
         return fetchedResultsController.fetchedObjects?.count ?? 0
@@ -21,6 +22,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     init(fetchRequest: NSFetchRequest<Entry>, managedObjectContext context: NSManagedObjectContext, tableView: UITableView) {
         self.tableView = tableView
         self.fetchedResultsController = EntriesFetchedResultsController(request: fetchRequest, context: context)
+        self.context = context
         super.init()
         
         self.fetchedResultsController.delegate = self
@@ -39,6 +41,20 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         let model = EntryModel(entry: entry)
         cell.configureWith(model, isEdited: entry.isEdited)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            let entry = fetchedResultsController.object(at: indexPath)
+            context.delete(entry)
+        default:
+            break
+        }
     }
     
     func entryAt(_ indexPath: IndexPath) -> Entry {

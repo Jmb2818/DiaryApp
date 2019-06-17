@@ -32,7 +32,7 @@ class EntryTableViewCell: UITableViewCell {
         self.entryDate.text = model.date
         self.entryPassage.textColor = textColor
         self.entryMoodImageView.image = model.moodImage
-        entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "pictureIcon") : model.image
+        entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
         if model.mood != "" {
             self.entryMoodImageView.isHidden = false
             self.entryMoodImageView.image = model.moodImage

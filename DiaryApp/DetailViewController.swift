@@ -113,21 +113,26 @@ class DetailViewController: UIViewController {
             navigationController?.popToRootViewController(animated: true)
         }
         
+        
+        // TODO: Break out as much as you can, function too long
         var selectedMood = ""
         moodButtonArray.forEach({
             if $0?.isSelected ?? false {
                 selectedMood = $0?.restorationIdentifier ?? ""
             }
         })
+        
         guard let entry = entry else {
             let date = entryDateLabel.text ?? ""
             let model = EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
             Entry.with(model, in: coreDataStack.managedObjectContext, isEdited: true)
             return
         }
+        
         entry.setValue(entryTextView.text, forKey: "entry")
         entry.setValue(selectedMood, forKey: "mood")
         entry.setValue(1, forKey: "isEdited")
+        
         if let creationLocation = model?.creationLocation {
             entry.setValue(creationLocation, forKey: "creationLocation")
         }

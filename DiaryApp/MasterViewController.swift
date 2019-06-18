@@ -14,12 +14,11 @@ class MasterViewController: UIViewController {
     @IBOutlet weak var addEntryButton: UIBarButtonItem!
     @IBOutlet weak var entryTableView: UITableView!
     
-    private let dateEditor = DateEditor()
     var entries: [NSManagedObject] = []
     var coreDataStack = CoreDataStack()
     private var initialModel: EntryModel {
         let todaysDate = Date()
-        let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate) ?? ""
+        let formattedDate = DateEditor.weekdayDayMonthFrom(todaysDate) ?? ""
         return EntryModel(date: formattedDate, entry: "Record your thoughts for today", mood: "")
     }
     
@@ -42,7 +41,7 @@ class MasterViewController: UIViewController {
     
     func setUpNavigationBar() {
         let todaysDate = Date()
-        let formattedDate = dateEditor.monthDayYearFrom(todaysDate)
+        let formattedDate = DateEditor.monthDayYearFrom(todaysDate)
         self.navigationItem.title = formattedDate
     }
     
@@ -65,16 +64,18 @@ class MasterViewController: UIViewController {
     }
     
     func configureInitialModel() {
-        guard dataSource.entriesCount == 0 || !dataSource.entryEnteredToday() else {
+        guard !dataSource.entryEnteredToday() else {
             return
         }
-        let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
-        if !firstEntry.isEdited {
-            let todaysDate = Date()
-            let formattedDate = dateEditor.weekdayDayMonthFrom(todaysDate)
-            firstEntry.setValue(formattedDate, forKey: "date")
-        } else {
+        if dataSource.entriesCount == 0 {
             Entry.with(initialModel, in: coreDataStack.managedObjectContext)
+        } else {
+            let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
+            if !firstEntry.isEdited {
+                let todaysDate = Date()
+                let formattedDate = DateEditor.weekdayDayMonthFrom(todaysDate)
+                firstEntry.setValue(formattedDate, forKey: "date")
+            }
         }
         coreDataStack.managedObjectContext.saveChanges()
     }

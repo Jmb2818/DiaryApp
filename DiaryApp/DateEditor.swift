@@ -9,10 +9,10 @@
 import Foundation
 
 class DateEditor {
-    let dateFormatter = DateFormatter()
+    static let dateFormatter = DateFormatter()
     
     
-    func monthDayYearFrom(_ date: Date) -> String? {
+    static func monthDayYearFrom(_ date: Date) -> String? {
         dateFormatter.dateFormat = "d"
         let formattedDay = daySuffixFor(dateFormatter.string(from: date))
         dateFormatter.dateFormat = "MMMM"
@@ -22,7 +22,7 @@ class DateEditor {
         return [month, " ", formattedDay, ",", " ", year].joined()
     }
     
-    func weekdayDayMonthFrom(_ date: Date) -> String? {
+    static func weekdayDayMonthFrom(_ date: Date) -> String? {
         dateFormatter.dateFormat = "d"
         let formattedDay = daySuffixFor(dateFormatter.string(from: date))
         dateFormatter.dateFormat = "EEEE"
@@ -32,8 +32,12 @@ class DateEditor {
         return [weekday, " ", formattedDay, " ", month].joined()
     }
     
+    static func monthFrom(_ date: Date) -> String {
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter.string(from: date)
+    }
     
-    func daySuffixFor(_ string: String?) -> String {
+    static func daySuffixFor(_ string: String?) -> String {
         guard let string = string, let number = Int(string) else {
             return ""
         }

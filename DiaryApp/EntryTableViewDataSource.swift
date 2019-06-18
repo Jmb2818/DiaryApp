@@ -12,7 +12,6 @@ import CoreData
 class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     private let tableView: UITableView
     private let fetchedResultsController: EntriesFetchedResultsController
-    private let dateEditor = DateEditor()
     private let context: NSManagedObjectContext
     
     var entriesCount: Int {
@@ -66,7 +65,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
             return false
         }
         
-        let todaysDate = dateEditor.weekdayDayMonthFrom(Date())
+        let todaysDate = DateEditor.weekdayDayMonthFrom(Date())
         if entries.contains(where: {
             $0.date == todaysDate
         }) {

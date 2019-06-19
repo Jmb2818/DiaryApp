@@ -27,8 +27,18 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         self.fetchedResultsController.delegate = self
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let indexPath = IndexPath(row: 0, section: section)
+        let entry = fetchedResultsController.object(at: indexPath)
+        return entry.month
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

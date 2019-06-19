@@ -26,6 +26,7 @@ extension Entry {
     @NSManaged public var mood: String
     @NSManaged public var isEdited: Bool
     @NSManaged public var creationLocation: String?
+    @NSManaged public var month: String
 }
 
 extension Entry {
@@ -38,7 +39,9 @@ extension Entry {
             return
         }
         
-        entry.creationDate = Date()
+        let todaysDate = Date()
+        entry.creationDate = todaysDate
+        entry.month = DateEditor.monthFrom(todaysDate)
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood

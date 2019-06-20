@@ -36,9 +36,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let indexPath = IndexPath(row: 0, section: section)
-        let entry = fetchedResultsController.object(at: indexPath)
-        return entry.month
+        return fetchedResultsController.sections?[section].name
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,6 +59,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         case .delete:
             let entry = fetchedResultsController.object(at: indexPath)
             context.delete(entry)
+            context.saveChanges()
         default:
             break
         }

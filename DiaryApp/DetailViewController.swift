@@ -87,6 +87,11 @@ class DetailViewController: UIViewController {
             !entry.isEdited {
             entryTextView.text = ""
         }
+        
+        if entry == nil {
+            entryTextView.text = ""
+        }
+        
         setupLocation()
     }
     

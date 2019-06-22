@@ -68,7 +68,7 @@ class MapViewController: UIViewController {
         guard let detailVC = self.navigationController?.viewControllers.first(where: { $0 is DetailViewController }) as? DetailViewController else {
             return
         }
-        if locationLabel.text != "Tap To Select A Location" {
+        if locationLabel.text != UserStrings.Location.selectALocation {
             detailVC.model?.creationLocation = locationLabel.text
         }
         navigationController?.popViewController(animated: true)
@@ -105,8 +105,8 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // TODO: Fix when doing errors
-        print(error)
+        let error = DiaryError.locationError
+        presentAlert(title: error.errorTitle, message: error.errorMessage)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

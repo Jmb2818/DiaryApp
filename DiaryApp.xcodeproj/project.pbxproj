@@ -15,6 +15,9 @@
 		0B92FDB5229B86AF0021497F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92FDB4229B86AF0021497F /* CoreDataStack.swift */; };
 		0B92FDB7229BA7DF0021497F /* EntriesFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92FDB6229BA7DF0021497F /* EntriesFetchedResultsController.swift */; };
 		0B92FDB9229D06460021497F /* EntryTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92FDB8229D06460021497F /* EntryTableViewDataSource.swift */; };
+		0BA3F0BE22BEDC96008AE56B /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA3F0BD22BEDC96008AE56B /* ViewController+Extensions.swift */; };
+		0BA3F0C122BEDE72008AE56B /* DiaryErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA3F0C022BEDE72008AE56B /* DiaryErrors.swift */; };
+		0BA3F0C322BEE36E008AE56B /* UserStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA3F0C222BEE36E008AE56B /* UserStrings.swift */; };
 		0BF52BED227FD15A00598858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF52BEC227FD15A00598858 /* AppDelegate.swift */; };
 		0BF52BF2227FD15A00598858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BF52BF0227FD15A00598858 /* Main.storyboard */; };
 		0BF52BF4227FD15F00598858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF52BF3227FD15F00598858 /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 		0B92FDB4229B86AF0021497F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		0B92FDB6229BA7DF0021497F /* EntriesFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesFetchedResultsController.swift; sourceTree = "<group>"; };
 		0B92FDB8229D06460021497F /* EntryTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewDataSource.swift; sourceTree = "<group>"; };
+		0BA3F0BD22BEDC96008AE56B /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
+		0BA3F0C022BEDE72008AE56B /* DiaryErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryErrors.swift; sourceTree = "<group>"; };
+		0BA3F0C222BEE36E008AE56B /* UserStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStrings.swift; sourceTree = "<group>"; };
 		0BF52BE9227FD15A00598858 /* DiaryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiaryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF52BEC227FD15A00598858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF52BF1227FD15A00598858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,8 +122,18 @@
 			children = (
 				0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */,
 				0BF52C022287442900598858 /* DateEditor.swift */,
+				0BA3F0BD22BEDC96008AE56B /* ViewController+Extensions.swift */,
+				0BA3F0C222BEE36E008AE56B /* UserStrings.swift */,
 			);
 			path = "Utilities + Extensions";
+			sourceTree = "<group>";
+		};
+		0BA3F0BF22BEDE5C008AE56B /* ErrorHandling */ = {
+			isa = PBXGroup;
+			children = (
+				0BA3F0C022BEDE72008AE56B /* DiaryErrors.swift */,
+			);
+			path = ErrorHandling;
 			sourceTree = "<group>";
 		};
 		0BF52BE0227FD15A00598858 = {
@@ -139,6 +155,7 @@
 		0BF52BEB227FD15A00598858 /* DiaryApp */ = {
 			isa = PBXGroup;
 			children = (
+				0BA3F0BF22BEDE5C008AE56B /* ErrorHandling */,
 				0BA3F0BC22BED71D008AE56B /* Utilities + Extensions */,
 				0BA3F0BB22BED70D008AE56B /* DataSource */,
 				0BA3F0BA22BED6EB008AE56B /* Cells */,
@@ -229,7 +246,10 @@
 				0B92FDB3229AD7060021497F /* Entry+Extension.swift in Sources */,
 				0B92FDB5229B86AF0021497F /* CoreDataStack.swift in Sources */,
 				0B92FDAF2299B7B30021497F /* Entry.xcdatamodeld in Sources */,
+				0BA3F0C322BEE36E008AE56B /* UserStrings.swift in Sources */,
 				0BF52C01228542F800598858 /* EntryTableViewCell.swift in Sources */,
+				0BA3F0BE22BEDC96008AE56B /* ViewController+Extensions.swift in Sources */,
+				0BA3F0C122BEDE72008AE56B /* DiaryErrors.swift in Sources */,
 				0B92FDB9229D06460021497F /* EntryTableViewDataSource.swift in Sources */,
 				0B807FD722A748A3007BE606 /* MapViewController.swift in Sources */,
 				0BF52C2522886A7D00598858 /* DetailViewController.swift in Sources */,

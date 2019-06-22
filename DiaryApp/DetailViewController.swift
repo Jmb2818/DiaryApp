@@ -30,6 +30,8 @@ class DetailViewController: UIViewController {
     var model: EntryModel?
     var coreDataStack: CoreDataStack?
     var entry: Entry?
+    // TODO: USERSTRINGS?
+    let lineBreak = "\n"
     
     
     override func viewDidLoad() {
@@ -73,6 +75,7 @@ class DetailViewController: UIViewController {
         guard let model = model else {
             return
         }
+        self.entryTextView.delegate = self
         self.entryDateLabel.text = model.date
         self.entryTextView.text = model.entry
         entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
@@ -172,6 +175,14 @@ extension DetailViewController: PhotoPickerManagerDelegate {
         photoPickerManager.dismissPhotoPicker(animated: true, completion: nil)
         entryImageView.image = image
     }
-    
-    
+}
+
+extension DetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == lineBreak {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }

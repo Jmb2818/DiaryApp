@@ -57,6 +57,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0BA3F0B622BED59C008AE56B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0B807FD622A748A3007BE606 /* MapViewController.swift */,
+				0BF52BFE227FD6B000598858 /* MasterViewController.swift */,
+				0B92FDB6229BA7DF0021497F /* EntriesFetchedResultsController.swift */,
+				0BF52C2422886A7D00598858 /* DetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0BA3F0B722BED649008AE56B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0BF52BF0227FD15A00598858 /* Main.storyboard */,
+				0BF52BF5227FD15F00598858 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		0BA3F0B822BED697008AE56B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B92FDB2229AD7060021497F /* Entry+Extension.swift */,
+				0B3CC4DE228CFEEF004E9DC7 /* EntryModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0BA3F0B922BED6B8008AE56B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0B92FDB4229B86AF0021497F /* CoreDataStack.swift */,
+				0B92FDAD2299B7B30021497F /* Entry.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		0BA3F0BA22BED6EB008AE56B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0BF52C00228542F800598858 /* EntryTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0BA3F0BB22BED70D008AE56B /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				0B92FDB8229D06460021497F /* EntryTableViewDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		0BA3F0BC22BED71D008AE56B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */,
+				0BF52C022287442900598858 /* DateEditor.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		0BF52BE0227FD15A00598858 = {
 			isa = PBXGroup;
 			children = (
@@ -76,23 +139,16 @@
 		0BF52BEB227FD15A00598858 /* DiaryApp */ = {
 			isa = PBXGroup;
 			children = (
+				0BA3F0BC22BED71D008AE56B /* Utilities */,
+				0BA3F0BB22BED70D008AE56B /* DataSource */,
+				0BA3F0BA22BED6EB008AE56B /* Cells */,
+				0BA3F0B922BED6B8008AE56B /* CoreData */,
+				0BA3F0B822BED697008AE56B /* Models */,
+				0BA3F0B722BED649008AE56B /* Storyboards */,
+				0BA3F0B622BED59C008AE56B /* ViewControllers */,
 				0BF52BEC227FD15A00598858 /* AppDelegate.swift */,
-				0BF52BF0227FD15A00598858 /* Main.storyboard */,
 				0BF52BF3227FD15F00598858 /* Assets.xcassets */,
-				0BF52BF5227FD15F00598858 /* LaunchScreen.storyboard */,
 				0BF52BF8227FD15F00598858 /* Info.plist */,
-				0BF52BFE227FD6B000598858 /* MasterViewController.swift */,
-				0BF52C00228542F800598858 /* EntryTableViewCell.swift */,
-				0BF52C022287442900598858 /* DateEditor.swift */,
-				0BF52C2422886A7D00598858 /* DetailViewController.swift */,
-				0B3CC4DE228CFEEF004E9DC7 /* EntryModel.swift */,
-				0B92FDAD2299B7B30021497F /* Entry.xcdatamodeld */,
-				0B92FDB2229AD7060021497F /* Entry+Extension.swift */,
-				0B92FDB4229B86AF0021497F /* CoreDataStack.swift */,
-				0B92FDB6229BA7DF0021497F /* EntriesFetchedResultsController.swift */,
-				0B92FDB8229D06460021497F /* EntryTableViewDataSource.swift */,
-				0B807FD622A748A3007BE606 /* MapViewController.swift */,
-				0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */,
 			);
 			path = DiaryApp;
 			sourceTree = "<group>";

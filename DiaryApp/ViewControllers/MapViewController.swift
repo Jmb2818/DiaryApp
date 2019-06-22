@@ -105,6 +105,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // TODO: Fix when doing errors
         print(error)
     }
     

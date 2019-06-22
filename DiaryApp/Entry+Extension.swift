@@ -14,8 +14,9 @@ class Entry: NSManagedObject {}
 extension Entry {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
         let request = NSFetchRequest<Entry>(entityName: "Entry")
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        request.sortDescriptors = [sortDescriptor]
+        let monthSort = NSSortDescriptor(key: "sectionDate", ascending: false)
+        let creationSort = NSSortDescriptor(key: "creationDate", ascending: false)
+        request.sortDescriptors = [monthSort, creationSort]
         return request
     }
     
@@ -26,7 +27,7 @@ extension Entry {
     @NSManaged public var mood: String
     @NSManaged public var isEdited: Bool
     @NSManaged public var creationLocation: String?
-    @NSManaged public var month: String
+    @NSManaged public var sectionDate: Date?
 }
 
 extension Entry {
@@ -41,7 +42,7 @@ extension Entry {
         
         let todaysDate = Date()
         entry.creationDate = todaysDate
-        entry.month = DateEditor.monthFrom(todaysDate)
+        entry.sectionDate = DateEditor.startOfMonthFrom(todaysDate)
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood

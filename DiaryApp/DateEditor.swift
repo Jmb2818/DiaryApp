@@ -32,8 +32,17 @@ class DateEditor {
         return [weekday, " ", formattedDay, " ", month].joined()
     }
     
-    static func monthFrom(_ date: Date) -> String {
-        dateFormatter.dateFormat = "MMMM"
+    static func startOfMonthFrom(_ date: Date) -> Date? {
+        let calendarComponents = Calendar.current.dateComponents([.year, .month], from: date)
+        let firstOfMonth = Calendar.current.date(from: calendarComponents) ?? Date()
+        return Calendar.current.date(byAdding: .day, value: 2, to: firstOfMonth)
+    }
+    
+    static func monthYearFrom(_ date: Date?) -> String? {
+        guard let date = date else {
+            return nil
+        }
+        dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: date)
     }
     

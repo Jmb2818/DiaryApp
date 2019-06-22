@@ -36,7 +36,9 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fetchedResultsController.sections?[section].name
+        let entry = fetchedResultsController.object(at: IndexPath(row: 0, section: section))
+        let sectionName = DateEditor.monthYearFrom(entry.sectionDate)
+        return sectionName
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

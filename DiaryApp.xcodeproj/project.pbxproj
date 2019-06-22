@@ -111,13 +111,13 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
-		0BA3F0BC22BED71D008AE56B /* Utilities */ = {
+		0BA3F0BC22BED71D008AE56B /* Utilities + Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				0B2564E822B20EBA0062489E /* PhotoPickerManager.swift */,
 				0BF52C022287442900598858 /* DateEditor.swift */,
 			);
-			path = Utilities;
+			path = "Utilities + Extensions";
 			sourceTree = "<group>";
 		};
 		0BF52BE0227FD15A00598858 = {
@@ -139,7 +139,7 @@
 		0BF52BEB227FD15A00598858 /* DiaryApp */ = {
 			isa = PBXGroup;
 			children = (
-				0BA3F0BC22BED71D008AE56B /* Utilities */,
+				0BA3F0BC22BED71D008AE56B /* Utilities + Extensions */,
 				0BA3F0BB22BED70D008AE56B /* DataSource */,
 				0BA3F0BA22BED6EB008AE56B /* Cells */,
 				0BA3F0B922BED6B8008AE56B /* CoreData */,

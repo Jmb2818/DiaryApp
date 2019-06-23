@@ -13,19 +13,23 @@ protocol PhotoPickerManagerDelegate: class {
     func photoPickerManager(_ manager: PhotoPickerManager, didPickImage image: UIImage)
 }
 
+/// A class to act as the manager of selecting photos from camera or gallery
 class PhotoPickerManager: NSObject {
+    
+    // MARK: Properties
     private let imagePickerController = UIImagePickerController()
     private let controller: UIViewController
     private let actionSheet = UIAlertController(title: UserStrings.PhotoManager.chooseImage, message: nil, preferredStyle: .actionSheet)
-    
     weak var delegate: PhotoPickerManagerDelegate?
     
+    // MARK: Initializers
     init(presentingViewController: UIViewController) {
         self.controller = presentingViewController
         super.init()
         configure()
     }
     
+    /// Setup the imagePickerController
     private func configure() {
         imagePickerController.mediaTypes = [kUTTypeImage as String]
         imagePickerController.delegate = self

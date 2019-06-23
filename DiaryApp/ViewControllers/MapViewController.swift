@@ -11,14 +11,19 @@ import MapKit
 
 class MapViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationLabelView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var refreshLocationButton: UIButton!
     
-    let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
-    let annotation = MKPointAnnotation()
-    let geoCoder = CLGeocoder()
+    
+    // MARK: Properties
+    private let locationManager = CLLocationManager()
+    private let regionRadius: CLLocationDistance = 1000
+    private let annotation = MKPointAnnotation()
+    private let geoCoder = CLGeocoder()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,7 @@ class MapViewController: UIViewController {
         setupGestures()
         setUpLocationView()
         setupNavigationBar()
+        setupRefreshButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,34 +40,9 @@ class MapViewController: UIViewController {
         focusOnCurrentLocation()
     }
     
-    private func setUpLocationView() {
-        locationLabelView.clipsToBounds = true
-        locationLabelView.layer.cornerRadius = 20
-        locationLabelView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-    }
-    
-    private func setupGestures() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(addAnnotationToLocation))
-        mapView.addGestureRecognizer(tapRecognizer)
-    }
-    
-    private func setupNavigationBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveLocation))
-        self.navigationController?.navigationBar.tintColor = .white
-    }
-    
-    private func focusOnCurrentLocation() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            guard let currentLocation = locationManager.location else {
-                locationManager.requestLocation()
-                return
-            }
-            
-            let coordinateRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-            annotation.coordinate = coordinateRegion.center
-            
-            mapView.setRegion(coordinateRegion, animated: true)
-        }
+    // MARK: Actions
+    @IBAction func refeshLocation(_ sender: UIButton) {
+        focusOnCurrentLocation()
     }
     
     @objc private func saveLocation() {
@@ -74,13 +55,15 @@ class MapViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    //TODO: Maybe wrap the geo location in another function
+    /// Add a pin to the map when user taps it
     @objc private func addAnnotationToLocation(sender: UITapGestureRecognizer) {
         let location = sender.location(in: mapView)
         let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
         let lastLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
+        
+        // Convert the last location into a readable location for user
         geoCoder.reverseGeocodeLocation(lastLocation) { [weak self] placemarks, error in
             guard error == nil else {
                 return
@@ -99,6 +82,7 @@ class MapViewController: UIViewController {
     }
 }
 
+// MARK: CLLocationManagerDelegate Conformance
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         focusOnCurrentLocation()
@@ -115,6 +99,46 @@ extension MapViewController: CLLocationManagerDelegate {
             focusOnCurrentLocation()
         default:
             break
+        }
+    }
+}
+
+// MARK: View Setup
+private extension MapViewController {
+    func setUpLocationView() {
+        locationLabelView.clipsToBounds = true
+        locationLabelView.layer.cornerRadius = 20
+        locationLabelView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+    }
+    
+    func setupRefreshButton() {
+        refreshLocationButton.layer.masksToBounds = false
+        refreshLocationButton.layer.cornerRadius = 0.5 * refreshLocationButton.bounds.size.width
+        refreshLocationButton.clipsToBounds = true
+    }
+    
+    func setupGestures() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(addAnnotationToLocation))
+        mapView.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func setupNavigationBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveLocation))
+        self.navigationController?.navigationBar.tintColor = .white
+    }
+    
+    /// Funcion to zoom in on users current location if permission has been given
+    func focusOnCurrentLocation() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            guard let currentLocation = locationManager.location else {
+                locationManager.requestLocation()
+                return
+            }
+            
+            let coordinateRegion = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+            annotation.coordinate = coordinateRegion.center
+            
+            mapView.setRegion(coordinateRegion, animated: true)
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An enum to hold all of the errors for the app
 enum DiaryError: Error {
     case locationError
     case noCamera

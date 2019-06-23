@@ -175,7 +175,7 @@
                                             <constraint firstAttribute="width" constant="30" id="WCL-VL-O1L"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yko-fw-W1Q">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="Yko-fw-W1Q">
                                         <rect key="frame" x="40" y="0.0" width="42" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
@@ -322,6 +322,18 @@
                                     <constraint firstItem="L6X-er-wjR" firstAttribute="centerY" secondItem="p8f-Sw-P7C" secondAttribute="centerY" id="uP8-pc-P3S"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qe5-o1-Bva">
+                                <rect key="frame" x="285" y="557" width="70" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="9tc-Ae-mnD"/>
+                                    <constraint firstAttribute="width" constant="70" id="M89-Ce-cIx"/>
+                                </constraints>
+                                <state key="normal" image="refresh"/>
+                                <connections>
+                                    <action selector="refeshLocation:" destination="IZW-Zc-a3s" eventType="touchUpInside" id="rCl-Vm-hq1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -329,7 +341,9 @@
                             <constraint firstItem="63z-XG-Q0J" firstAttribute="trailing" secondItem="p8f-Sw-P7C" secondAttribute="trailing" id="5vy-vL-6fY"/>
                             <constraint firstItem="kYt-Ee-Veg" firstAttribute="top" secondItem="63z-XG-Q0J" secondAttribute="top" id="6ck-WN-lZD"/>
                             <constraint firstItem="p8f-Sw-P7C" firstAttribute="leading" secondItem="63z-XG-Q0J" secondAttribute="leading" id="6re-lR-9d6"/>
+                            <constraint firstAttribute="trailing" secondItem="qe5-o1-Bva" secondAttribute="trailing" constant="20" id="IJR-l2-jcm"/>
                             <constraint firstItem="63z-XG-Q0J" firstAttribute="bottom" secondItem="kYt-Ee-Veg" secondAttribute="bottom" id="KUW-YB-xiR"/>
+                            <constraint firstAttribute="bottom" secondItem="qe5-o1-Bva" secondAttribute="bottom" constant="40" id="NP9-tD-wYF"/>
                             <constraint firstItem="kYt-Ee-Veg" firstAttribute="leading" secondItem="63z-XG-Q0J" secondAttribute="leading" id="lub-u6-ktw"/>
                             <constraint firstItem="63z-XG-Q0J" firstAttribute="trailing" secondItem="kYt-Ee-Veg" secondAttribute="trailing" id="odV-wh-lNC"/>
                         </constraints>
@@ -339,6 +353,7 @@
                         <outlet property="locationLabel" destination="L6X-er-wjR" id="gLA-hH-fPH"/>
                         <outlet property="locationLabelView" destination="p8f-Sw-P7C" id="kIA-aV-fif"/>
                         <outlet property="mapView" destination="kYt-Ee-Veg" id="y6y-WZ-Qa9"/>
+                        <outlet property="refreshLocationButton" destination="qe5-o1-Bva" id="HsO-Q7-NoG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZxU-lG-YaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -373,12 +388,13 @@
         <image name="happyIcon" width="25" height="25"/>
         <image name="linedBackground" width="164" height="113"/>
         <image name="photoAlbum" width="512" height="512"/>
+        <image name="refresh" width="417" height="417"/>
         <image name="smallBadIcon" width="15" height="15"/>
         <image name="smallHappyIcon" width="15" height="15"/>
         <image name="smallNeutralIcon" width="14.5" height="14.5"/>
         <image name="writeIcon" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vxN-fm-byU"/>
+        <segue reference="iL6-JP-kMY"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -40,11 +40,13 @@ class MapViewController: UIViewController {
         focusOnCurrentLocation()
     }
     
-    // MARK: Actions
+    // MARK: IBActions
     @IBAction func refeshLocation(_ sender: UIButton) {
         focusOnCurrentLocation()
     }
     
+    // MARK: Actions
+    /// Save the currently selected location if it exists
     @objc private func saveLocation() {
         guard let detailVC = self.navigationController?.viewControllers.first(where: { $0 is DetailViewController }) as? DetailViewController else {
             return

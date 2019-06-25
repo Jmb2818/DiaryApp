@@ -28,6 +28,7 @@ extension Entry {
     @NSManaged public var isEdited: Bool
     @NSManaged public var creationLocation: String?
     @NSManaged public var sectionDate: Date?
+    @NSManaged public var editedDate: String?
 }
 
 extension Entry {
@@ -46,7 +47,12 @@ extension Entry {
         entry.date = entryModel.date
         entry.entry = entryModel.entry
         entry.mood = entryModel.mood
-        entry.isEdited = isEdited   }
+        entry.isEdited = isEdited
+        
+        if let creationLocation = entryModel.creationLocation {
+            entry.creationLocation = creationLocation
+        }
+    }
 }
 
 extension Entry {

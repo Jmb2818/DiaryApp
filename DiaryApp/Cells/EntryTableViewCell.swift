@@ -16,6 +16,7 @@ class EntryTableViewCell: UITableViewCell {
     @IBOutlet weak var entryMoodImageView: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var geoLocationImageView: UIImageView!
+    @IBOutlet weak var createdOrEditedDateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +48,13 @@ class EntryTableViewCell: UITableViewCell {
         } else {
             locationLabel.isHidden = true
             geoLocationImageView.isHidden = true
+        }
+        
+        if let editedDate = model.editedDate {
+            createdOrEditedDateLabel.isHidden = false
+            createdOrEditedDateLabel.text = "Edited On: \(editedDate)"
+        } else {
+            createdOrEditedDateLabel.isHidden = true
         }
         
         self.entryPassage.text = model.entry

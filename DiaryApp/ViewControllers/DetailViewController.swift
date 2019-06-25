@@ -85,16 +85,6 @@ class DetailViewController: UIViewController {
             }
         }
         
-        // Clear out new entry's text
-        if let entry = entry,
-            !entry.isEdited {
-            entryTextView.text = ""
-        }
-        
-        if entry == nil {
-            entryTextView.text = ""
-        }
-        
         setupLocation()
     }
     
@@ -132,11 +122,15 @@ class DetailViewController: UIViewController {
         
         guard let entry = entry else {
             let date = entryDateLabel.text ?? ""
-            let model = EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
+            let model = self.model ?? EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
             Entry.with(model, in: coreDataStack.managedObjectContext, isEdited: true)
             return
         }
         
+        if entry.isEdited {
+            let todaysDate = DateEditor.weekdayDayMonthFrom(Date())
+            entry.setValue(todaysDate, forKey: "editedDate")
+        }
         entry.setValue(entryTextView.text, forKey: "entry")
         entry.setValue(selectedMood, forKey: "mood")
         entry.setValue(1, forKey: "isEdited")
@@ -158,6 +152,7 @@ class DetailViewController: UIViewController {
         }
     }
     
+    // MARK: IBActions
     @IBAction func moodSelected(sender: UIButton) {
         guard !sender.isSelected else {
             resetMoodButtons()
@@ -170,6 +165,7 @@ class DetailViewController: UIViewController {
     }
 }
 
+// MARK: PhotoPickerManagerDelegate Conformance
 extension DetailViewController: PhotoPickerManagerDelegate {
     func photoPickerManager(_ manager: PhotoPickerManager, didPickImage image: UIImage) {
         photoPickerManager.dismissPhotoPicker(animated: true, completion: nil)
@@ -177,12 +173,26 @@ extension DetailViewController: PhotoPickerManagerDelegate {
     }
 }
 
+// MARK: UITextViewDelegate Conformance
 extension DetailViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Make sure return dismisses the keyboard
         if text == lineBreak {
             textView.resignFirstResponder()
             return false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        // Clear out new entry's text if needed
+        if let entry = entry,
+            !entry.isEdited {
+            entryTextView.text = ""
+        }
+        
+        if entry == nil {
+            entryTextView.text = ""
+        }
     }
 }

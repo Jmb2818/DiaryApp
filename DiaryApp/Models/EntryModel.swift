@@ -14,6 +14,7 @@ struct EntryModel {
     var mood: String
     var creationLocation: String?
     var image: UIImage?
+    var editedDate: String?
     
     var moodImage: UIImage? {
         switch mood {
@@ -34,6 +35,7 @@ struct EntryModel {
         self.mood = entry.mood
         self.creationLocation = entry.creationLocation
         self.image = entry.entryImage
+        self.editedDate = entry.editedDate
     }
     
     init(date: String, entry: String, mood: String) {
@@ -41,6 +43,7 @@ struct EntryModel {
         self.entry = entry
         self.mood = mood
         self.creationLocation = nil
+        self.editedDate = date
     }
     
 }

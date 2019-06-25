@@ -9,6 +9,10 @@
 import Foundation
 
 class UserStrings {
+    enum General {
+        static let lineBreak = "\n"
+    }
+    
     enum PhotoManager {
         static let chooseImage = "Choose Image"
         static let camera = "Camera"

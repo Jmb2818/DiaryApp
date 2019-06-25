@@ -30,8 +30,6 @@ class DetailViewController: UIViewController {
     var model: EntryModel?
     var coreDataStack: CoreDataStack?
     var entry: Entry?
-    // TODO: USERSTRINGS?
-    let lineBreak = "\n"
     
     
     override func viewDidLoad() {
@@ -48,51 +46,7 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func setupNavigationBar() {
-        let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEntry))
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveEntry))
-        navigationItem.setLeftBarButton(backButton, animated: false)
-        navigationItem.setRightBarButton(saveButton, animated: false)
-        navigationItem.leftBarButtonItem?.tintColor = .white
-        navigationItem.rightBarButtonItem?.tintColor = .white
-    }
-    
-    func setupLocation() {
-        if let model = model, let location = model.creationLocation {
-            locationLabel.isHidden = false
-            editLocationButton.isHidden = false
-            addLocationButton.isHidden = true
-            locationLabel.text = location
-        } else {
-            locationLabel.isHidden = true
-            editLocationButton.isHidden = true
-            addLocationButton.isHidden = false
-        }
-    }
-    
-    // TODO: Move to private extension
-    private func setupView() {
-        guard let model = model else {
-            return
-        }
-        self.entryTextView.delegate = self
-        self.entryDateLabel.text = model.date
-        self.entryTextView.text = model.entry
-        entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
-        moodButtonArray.forEach { button in
-            if let button = button, button.restorationIdentifier == model.mood {
-                moodSelected(sender: button)
-            }
-        }
-        
-        setupLocation()
-    }
-    
-    func addTapGestureRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
-        entryImageView.addGestureRecognizer(tapGesture)
-    }
-    
+    // MARK: Actions
     @objc func pickImage() {
         photoPickerManager.presentImagePickingOptions()
     }
@@ -128,7 +82,7 @@ class DetailViewController: UIViewController {
         }
         
         if entry.isEdited {
-            let todaysDate = DateEditor.weekdayDayMonthFrom(Date())
+            let todaysDate = DateEditor.monthDayYearFrom(Date())
             entry.setValue(todaysDate, forKey: "editedDate")
         }
         entry.setValue(entryTextView.text, forKey: "entry")
@@ -141,14 +95,6 @@ class DetailViewController: UIViewController {
         
         if let image = entryImageView.image, let imageData = image.jpegData(compressionQuality: 1.0) {
             entry.setValue(imageData, forKey: "image")
-        }
-    }
-    
-    func resetMoodButtons() {
-        moodButtonArray.forEach { button in
-            button?.layer.borderWidth = 0
-            button?.layer.borderColor = UIColor.clear.cgColor
-            button?.isSelected = false
         }
     }
     
@@ -165,6 +111,63 @@ class DetailViewController: UIViewController {
     }
 }
 
+
+private extension DetailViewController {
+    // MARK: View Set Up
+    func setupNavigationBar() {
+        let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEntry))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveEntry))
+        navigationItem.setLeftBarButton(backButton, animated: false)
+        navigationItem.setRightBarButton(saveButton, animated: false)
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationItem.rightBarButtonItem?.tintColor = .white
+    }
+    
+    func setupLocation() {
+        if let model = model, let location = model.creationLocation {
+            locationLabel.isHidden = false
+            editLocationButton.isHidden = false
+            addLocationButton.isHidden = true
+            locationLabel.text = location
+        } else {
+            locationLabel.isHidden = true
+            editLocationButton.isHidden = true
+            addLocationButton.isHidden = false
+        }
+    }
+    
+    func setupView() {
+        guard let model = model else {
+            return
+        }
+        self.entryTextView.delegate = self
+        self.entryDateLabel.text = model.date
+        self.entryTextView.text = model.entry
+        entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
+        moodButtonArray.forEach { button in
+            if let button = button, button.restorationIdentifier == model.mood {
+                moodSelected(sender: button)
+            }
+        }
+        
+        setupLocation()
+    }
+    
+    func addTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
+        entryImageView.addGestureRecognizer(tapGesture)
+    }
+
+    /// Reset mood buttons to not be selected
+    func resetMoodButtons() {
+        moodButtonArray.forEach { button in
+            button?.layer.borderWidth = 0
+            button?.layer.borderColor = UIColor.clear.cgColor
+            button?.isSelected = false
+        }
+    }
+}
+
 // MARK: PhotoPickerManagerDelegate Conformance
 extension DetailViewController: PhotoPickerManagerDelegate {
     func photoPickerManager(_ manager: PhotoPickerManager, didPickImage image: UIImage) {
@@ -177,7 +180,7 @@ extension DetailViewController: PhotoPickerManagerDelegate {
 extension DetailViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // Make sure return dismisses the keyboard
-        if text == lineBreak {
+        if text == UserStrings.General.lineBreak {
             textView.resignFirstResponder()
             return false
         }

@@ -59,34 +59,32 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: Actions
+    /// Function to present image picker
     @objc func pickImage() {
         photoPickerManager.presentImagePickingOptions()
     }
     
+    /// Function to cancel and pop back to master view
     @objc func cancelEntry() {
         navigationController?.popToRootViewController(animated: true)
     }
     
+    /// Function to save an entry
     @objc func saveEntry() {
         guard let coreDataStack = coreDataStack else {
             return
         }
         
+        // Always save changes and pop back to master view
         defer {
             coreDataStack.managedObjectContext.saveChanges()
             navigationController?.popToRootViewController(animated: true)
         }
         
-        
-        // TODO: Break out as much as you can, function too long
-        var selectedMood = ""
-        moodButtonArray.forEach({
-            if $0?.isSelected ?? false {
-                selectedMood = $0?.restorationIdentifier ?? ""
-            }
-        })
+        let selectedMood = getSelectedMood()
         
         guard let entry = entry else {
+            // If there is no entry passed in create a new one
             let date = entryDateLabel.text ?? ""
             var model = self.model ?? EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
             model.entry = entryTextView.text
@@ -95,20 +93,23 @@ class DetailViewController: UIViewController {
             return
         }
         
+        // If this is an edited entry, update the edited on date
         if entry.isEdited {
             let todaysDate = DateEditor.monthDayYearFrom(Date())
-            entry.setValue(todaysDate, forKey: "editedDate")
+            entry.setValue(todaysDate, forKey: EntryKeys.editedDate.rawValue)
         }
-        entry.setValue(entryTextView.text, forKey: "entry")
-        entry.setValue(selectedMood, forKey: "mood")
-        entry.setValue(1, forKey: "isEdited")
+        entry.setValue(entryTextView.text, forKey: EntryKeys.entry.rawValue)
+        entry.setValue(selectedMood, forKey: EntryKeys.mood.rawValue)
+        entry.setValue(1, forKey: EntryKeys.isEdited.rawValue)
         
+        // Update location if available
         if let creationLocation = model?.creationLocation {
-            entry.setValue(creationLocation, forKey: "creationLocation")
+            entry.setValue(creationLocation, forKey: EntryKeys.creationLocation.rawValue)
         }
         
+        // Update image for entry
         if let image = entryImageView.image, let imageData = image.jpegData(compressionQuality: 1.0) {
-            entry.setValue(imageData, forKey: "image")
+            entry.setValue(imageData, forKey: EntryKeys.image.rawValue)
         }
     }
     
@@ -172,18 +173,30 @@ private extension DetailViewController {
         setupLocation()
     }
     
+    /// Function to update count of characters
     func updateCount() {
         guard isEditedEntry else {
-          characterCountLabel.text = "0/200"
+          characterCountLabel.text = UserStrings.General.noCharacters
             return
         }
         let count = String(textViewTextCount)
-        characterCountLabel.text = "\(count)/200"
+        characterCountLabel.text = [count, UserStrings.General.someCharacters].joined()
     }
     
     func addTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         entryImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    /// Function to get selected mood if there is one
+    func getSelectedMood() -> String {
+        var selectedMood = ""
+        moodButtonArray.forEach({
+            if $0?.isSelected ?? false {
+                selectedMood = $0?.restorationIdentifier ?? ""
+            }
+        })
+        return selectedMood
     }
 
     /// Reset mood buttons to not be selected

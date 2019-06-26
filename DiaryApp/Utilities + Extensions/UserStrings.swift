@@ -11,6 +11,8 @@ import Foundation
 class UserStrings {
     enum General {
         static let lineBreak = "\n"
+        static let noCharacters = "0/200"
+        static let someCharacters = "/200"
     }
     
     enum PhotoManager {

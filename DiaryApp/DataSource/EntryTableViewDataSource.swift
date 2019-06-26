@@ -9,7 +9,10 @@
 import UIKit
 import CoreData
 
+/// Class to act as the data source for the EntriesFetchedResultsController
 class EntryTableViewDataSource: NSObject, UITableViewDataSource {
+    
+    // MARK: Properties
     private let tableView: UITableView
     private let fetchedResultsController: EntriesFetchedResultsController
     private let context: NSManagedObjectContext
@@ -18,6 +21,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         return fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
+    // MARK: Initializers
     init(fetchRequest: NSFetchRequest<Entry>, managedObjectContext context: NSManagedObjectContext, tableView: UITableView) {
         self.tableView = tableView
         self.fetchedResultsController = EntriesFetchedResultsController(request: fetchRequest, context: context)
@@ -27,6 +31,7 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         self.fetchedResultsController.delegate = self
     }
     
+    // MARK: TableViewDelegate Conformance
     func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
     }
@@ -67,26 +72,14 @@ class EntryTableViewDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    // MARK: Helper Functions
+    /// Function to return the entry at the indexPath in the fetchedResultsController
     func entryAt(_ indexPath: IndexPath) -> Entry {
         return fetchedResultsController.object(at: indexPath)
     }
-    
-    func entryEnteredToday() -> Bool {
-        guard let entries = fetchedResultsController.fetchedObjects else {
-            return false
-        }
-        
-        let todaysDate = DateEditor.weekdayDayMonthFrom(Date())
-        if entries.contains(where: {
-            $0.date == todaysDate
-        }) {
-            return true
-        }
-        
-        return false
-    }
 }
 
+// MARK: NSFetchedResultsControllerDelegate Conformance
 extension EntryTableViewDataSource: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()

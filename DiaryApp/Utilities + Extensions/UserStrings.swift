@@ -24,6 +24,12 @@ class UserStrings {
         static let selectALocation = "Tap To Select A Location"
     }
     
+    enum Mood {
+        static let bad = "Bad"
+        static let good = "Good"
+        static let average = "Average"
+    }
+    
     enum Error {
         static let okTitle = "OK"
         static let error = "Error"

@@ -9,9 +9,11 @@
 import UIKit
 import CoreData
 
+/// Class of the main entity used in the app
 class Entry: NSManagedObject {}
 
 extension Entry {
+    // Setup the sorting of the entities and the fetch request
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
         let request = NSFetchRequest<Entry>(entityName: "Entry")
         let monthSort = NSSortDescriptor(key: "sectionDate", ascending: false)
@@ -36,6 +38,7 @@ extension Entry {
         return String(describing: Entry.self)
     }
     
+    /// Create a new entry entity from an EntryModel
     @nonobjc class func with(_ entryModel: EntryModel, in context: NSManagedObjectContext, isEdited: Bool = false) {
         guard let entry = NSEntityDescription.insertNewObject(forEntityName: Entry.entityName, into: context) as? Entry else {
             return
@@ -56,6 +59,7 @@ extension Entry {
 }
 
 extension Entry {
+    // Retrieve the saved image as a UIImage
     var entryImage: UIImage? {
         guard let image = UIImage(data: self.image as Data) else {
             return nil
@@ -64,6 +68,7 @@ extension Entry {
     }
 }
 
+/// Key for each property of an Entry
 enum EntryKeys: String {
     case creationDate
     case image

@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+/// Class for managing all of the main Core Data objects
 class CoreDataStack {
     lazy var managedObjectContext: NSManagedObjectContext = {
         let container = self.persistentContainer
@@ -28,6 +29,7 @@ class CoreDataStack {
 }
 
 extension NSManagedObjectContext {
+    /// Function to save the changes made to the core data entities
     func saveChanges() {
         do {
             try save()

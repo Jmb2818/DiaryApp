@@ -90,6 +90,7 @@ class DetailViewController: UIViewController {
             let date = entryDateLabel.text ?? ""
             var model = self.model ?? EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
             model.entry = entryTextView.text
+            model.mood = selectedMood
             Entry.with(model, in: coreDataStack.managedObjectContext, isEdited: true)
             return
         }

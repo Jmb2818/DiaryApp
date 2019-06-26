@@ -8,7 +8,10 @@
 
 import UIKit
 
+/// A model to create from an entry and set all the correct values for the UI
 struct EntryModel {
+    
+    // MARK: Properties
     let date: String
     var entry: String
     var mood: String
@@ -18,17 +21,18 @@ struct EntryModel {
     
     var moodImage: UIImage? {
         switch mood {
-        case "Bad":
+        case UserStrings.Mood.bad:
             return #imageLiteral(resourceName: "badIcon")
-        case "Good":
+        case UserStrings.Mood.good:
             return #imageLiteral(resourceName: "happyIcon")
-        case "Average":
+        case UserStrings.Mood.average:
             return #imageLiteral(resourceName: "neutralIcon")
         default:
             return nil
         }
     }
     
+    // MARK: Initializers
     init(entry: Entry) {
         self.date = entry.date
         self.entry = entry.entry

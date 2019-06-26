@@ -65,11 +65,28 @@ class MasterViewController: UIViewController {
     
     func configureInitialModel() {
         guard dataSource.entriesCount == 0 else {
+            updateUnusedEntry()
             return
         }
 
         Entry.with(initialModel, in: coreDataStack.managedObjectContext)
         coreDataStack.managedObjectContext.saveChanges()
+    }
+    
+    func updateUnusedEntry() {
+        guard dataSource.entriesCount > 0 else {
+            return
+        }
+        
+        let initialEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
+        if !initialEntry.isEdited {
+            let todaysDate = DateEditor.weekdayDayMonthFrom(Date())
+            let sectionDate = DateEditor.startOfMonthFrom(Date())
+            initialEntry.setValue(todaysDate, forKey: "date")
+            initialEntry.setValue(Date(), forKey: "creationDate")
+            initialEntry.setValue(sectionDate, forKey: "sectionDate")
+            coreDataStack.managedObjectContext.saveChanges()
+        }
     }
     
     @IBAction func addNewEntry(sender: UIBarButtonItem) {

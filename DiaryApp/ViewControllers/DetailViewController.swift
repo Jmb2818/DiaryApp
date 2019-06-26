@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var averageButton: UIButton!
     @IBOutlet weak var goodButton: UIButton!
     @IBOutlet weak var entryImageView: UIImageView!
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     lazy var moodButtonArray = [goodButton, averageButton, badButton]
     lazy var photoPickerManager: PhotoPickerManager = {
@@ -30,6 +31,11 @@ class DetailViewController: UIViewController {
     var model: EntryModel?
     var coreDataStack: CoreDataStack?
     var entry: Entry?
+    private var isEditedEntry: Bool = false
+    
+    var textViewTextCount: Int {
+        return entryTextView.text.count
+    }
     
     
     override func viewDidLoad() {
@@ -44,6 +50,12 @@ class DetailViewController: UIViewController {
         if model?.creationLocation != nil {
             setupLocation()
         }
+        updateCount()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        entryTextView.endEditing(true)
     }
     
     // MARK: Actions
@@ -76,7 +88,8 @@ class DetailViewController: UIViewController {
         
         guard let entry = entry else {
             let date = entryDateLabel.text ?? ""
-            let model = self.model ?? EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
+            var model = self.model ?? EntryModel(date: date, entry: entryTextView.text, mood: selectedMood)
+            model.entry = entryTextView.text
             Entry.with(model, in: coreDataStack.managedObjectContext, isEdited: true)
             return
         }
@@ -143,6 +156,7 @@ private extension DetailViewController {
         self.entryTextView.delegate = self
         self.entryDateLabel.text = model.date
         self.entryTextView.text = model.entry
+        self.entryTextView.text = model.entry
         entryImageView.image = model.image == nil ? #imageLiteral(resourceName: "photoAlbum") : model.image
         moodButtonArray.forEach { button in
             if let button = button, button.restorationIdentifier == model.mood {
@@ -150,7 +164,20 @@ private extension DetailViewController {
             }
         }
         
+        if let entry = entry {
+            isEditedEntry = entry.isEdited
+        }
+        
         setupLocation()
+    }
+    
+    func updateCount() {
+        guard isEditedEntry else {
+          characterCountLabel.text = "0/200"
+            return
+        }
+        let count = String(textViewTextCount)
+        characterCountLabel.text = "\(count)/200"
     }
     
     func addTapGestureRecognizer() {
@@ -184,18 +211,33 @@ extension DetailViewController: UITextViewDelegate {
             textView.resignFirstResponder()
             return false
         }
-        return true
+        
+        if text == "" {
+            return true
+        }
+        return textViewTextCount <= 199
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         // Clear out new entry's text if needed
-        if let entry = entry,
-            !entry.isEdited {
+        if !isEditedEntry {
             entryTextView.text = ""
         }
+        
+        isEditedEntry = true
         
         if entry == nil {
             entryTextView.text = ""
         }
+        
+        entryTextView.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        updateCount()
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        updateCount()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        updateCount()
     }
 }

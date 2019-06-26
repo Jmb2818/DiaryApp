@@ -8,8 +8,10 @@
 
 import UIKit
 
+/// Class to manage the Detail View Controller of each Entry
 class DetailViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet weak var entryDateLabel: UILabel!
     @IBOutlet weak var entryTextView: UITextView!
     @IBOutlet weak var locationLabel: UILabel!
@@ -21,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var entryImageView: UIImageView!
     @IBOutlet weak var characterCountLabel: UILabel!
     
+    // MARK: Properties
     lazy var moodButtonArray = [goodButton, averageButton, badButton]
     lazy var photoPickerManager: PhotoPickerManager = {
         let manager = PhotoPickerManager(presentingViewController: self)

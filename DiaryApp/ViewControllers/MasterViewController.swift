@@ -9,11 +9,14 @@
 import UIKit
 import CoreData
 
+/// A view controller to manage the table view and master screen
 class MasterViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet weak var addEntryButton: UIBarButtonItem!
     @IBOutlet weak var entryTableView: UITableView!
     
+    // MARK: Properties
     var entries: [NSManagedObject] = []
     var coreDataStack = CoreDataStack()
     private var initialModel: EntryModel {
@@ -39,13 +42,28 @@ class MasterViewController: UIViewController {
         entryTableView.reloadData()
     }
     
-    func setUpNavigationBar() {
+    
+    // MARK: IBActions
+    @IBAction func addNewEntry(sender: UIBarButtonItem) {
+        let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
+        if !firstEntry.isEdited {
+            presentDetailView(with: firstEntry)
+        } else {
+            presentDetailView(with: nil)
+        }
+    }
+}
+
+private extension MasterViewController {
+    // MARK: Setup View
+    private func setUpNavigationBar() {
         let todaysDate = Date()
         let formattedDate = DateEditor.monthDayYearFrom(todaysDate)
         self.navigationItem.title = formattedDate
     }
     
-    func presentDetailView(with entry: Entry?) {
+    /// Funtion to present the detail view controller with the correct model and Entry
+    private func presentDetailView(with entry: Entry?) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return
@@ -63,17 +81,19 @@ class MasterViewController: UIViewController {
         show(controller, sender: nil)
     }
     
-    func configureInitialModel() {
+    /// Function to configure the initial model if the data source is empty
+    private func configureInitialModel() {
         guard dataSource.entriesCount == 0 else {
             updateUnusedEntry()
             return
         }
-
+        
         Entry.with(initialModel, in: coreDataStack.managedObjectContext)
         coreDataStack.managedObjectContext.saveChanges()
     }
     
-    func updateUnusedEntry() {
+    /// Function to update an unedited first entry
+    private func updateUnusedEntry() {
         guard dataSource.entriesCount > 0 else {
             return
         }
@@ -88,17 +108,9 @@ class MasterViewController: UIViewController {
             coreDataStack.managedObjectContext.saveChanges()
         }
     }
-    
-    @IBAction func addNewEntry(sender: UIBarButtonItem) {
-        let firstEntry = dataSource.entryAt(IndexPath(row: 0, section: 0))
-        if !firstEntry.isEdited {
-            presentDetailView(with: firstEntry)
-        } else {
-            presentDetailView(with: nil)
-        }
-    }
 }
 
+// MARK: UITableViewDelegateConformance
 extension MasterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry = dataSource.entryAt(indexPath)

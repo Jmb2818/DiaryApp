@@ -47,6 +47,7 @@ class PhotoPickerManager: NSObject {
         actionSheet.addAction(cancelAction)
     }
     
+    // MARK: Helper Functions
     func presentImagePickingOptions() {
         controller.present(actionSheet, animated: true, completion: nil)
     }
@@ -54,7 +55,10 @@ class PhotoPickerManager: NSObject {
     func dismissPhotoPicker(animated: Bool, completion: (() -> Void)?) {
         imagePickerController.dismiss(animated: animated, completion: completion)
     }
-    
+}
+
+private extension PhotoPickerManager {
+    // MARK: Private helper functions
     private func presentPhotoPicker(animated: Bool) {
         controller.present(imagePickerController, animated: animated, completion: nil)
     }
@@ -77,6 +81,7 @@ class PhotoPickerManager: NSObject {
     }
 }
 
+// MARK: UIImagePickerControllerDelegate and UINavigationControllerDelegate Conformance
 extension PhotoPickerManager: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.originalImage] as? UIImage else { return }

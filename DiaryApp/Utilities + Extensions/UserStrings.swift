@@ -26,5 +26,6 @@ class UserStrings {
     
     enum Error {
         static let okTitle = "OK"
+        static let error = "Error"
     }
 }

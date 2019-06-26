@@ -63,3 +63,15 @@ extension Entry {
         return image
     }
 }
+
+enum EntryKeys: String {
+    case creationDate
+    case image
+    case date
+    case entry
+    case mood
+    case isEdited
+    case creationLocation
+    case sectionDate
+    case editedDate
+}
